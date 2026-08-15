@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Wishlist — Tommy's 1688 Finds</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='58' font-weight='900' fill='%23fff' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<style>
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #121212;
+    --sidebar-bg: #101010;
+    --card-bg: #fff;
+    --border: #232323;
+    --border2: #2c2c2c;
+    --text: #f0f0f0;
+    --muted: #8a8a8a;
+    --muted2: #5c5c5c;
+    --accent: #ff6a00;
+  }
+
+  body { font-family: 'Archivo Narrow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  .layout { display: grid; grid-template-columns: 92px 1fr; min-height: 100vh; }
+
+  /* ── LEFT SIDEBAR ── */
+  .sidebar {
+    background: var(--sidebar-bg); border-right: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 1.2rem 0; position: sticky; top: 0; height: 100vh;
+  }
+  .sidebar .logo { font-family: 'Bebas Neue', sans-serif; font-size: 15px; letter-spacing: .02em; text-align: center; line-height: 1.15; margin-bottom: 2rem; color: #fff; }
+  .sidebar .logo span { color: var(--muted); display: block; font-size: 11px; }
+  .side-nav { display: flex; flex-direction: column; gap: 4px; width: 100%; }
+  .side-item {
+    position: relative; display: flex; flex-direction: column; align-items: center; gap: 5px;
+    padding: 12px 6px; margin: 0 8px; border-radius: 8px; font-size: 10px; letter-spacing: .03em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; cursor: pointer; transition: color .15s ease, background .15s ease;
+  }
+  .side-item svg { width: 20px; height: 20px; }
+  .side-item.active { color: var(--bg); background: var(--accent); }
+  .side-item:not(.active):hover { color: #fff; background: rgba(255,255,255,.06); }
+  .side-item .wish-count-badge { position: absolute; top: 4px; right: 10px; }
+
+  /* ── MAIN ── */
+  .main { display: flex; flex-direction: column; min-width: 0; }
+
+  /* TOP BAR: search-first, like 1688 */
+  .topbar { display: flex; align-items: center; gap: 14px; padding: 1rem 2rem; border-bottom: 1px solid var(--border); }
+  .search-wrap { flex: 1; display: flex; max-width: 720px; }
+  .search-wrap input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); padding: 12px 16px; border-radius: 6px 0 0 6px; font-family: inherit; font-size: 13px; transition: border-color .15s ease; }
+  .search-wrap input:focus { outline: none; border-color: var(--accent); }
+  .search-wrap button { padding: 0 22px; background: var(--accent); border: none; color: #fff; font-family: inherit; font-size: 13px; font-weight: 600; letter-spacing: .04em; border-radius: 0 6px 6px 0; cursor: pointer; transition: filter .15s ease; }
+  .search-wrap button:hover { filter: brightness(1.1); }
+  .topbar-right { display: flex; align-items: center; gap: 16px; margin-left: auto; }
+  .icon-btn { background: none; border: none; color: var(--muted); font-size: 15px; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; padding: 4px; }
+  .topbar-right svg { display: block; }
+  .icon-btn:hover { color: #fff; }
+
+  /* PROMO STRIP */
+  .promo-strip { display: flex; gap: 0; padding: 0 2rem; border-bottom: 1px solid var(--border); overflow-x: auto; }
+  .promo-item { display: flex; align-items: center; gap: 10px; padding: 14px 22px 14px 0; margin-right: 22px; border-right: 1px solid var(--border); white-space: nowrap; }
+  .promo-item:last-child { border-right: none; }
+  .promo-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+  .promo-item .ptext strong { display: block; font-size: 12px; color: #fff; }
+  .promo-item .ptext span { font-size: 10px; color: var(--muted); }
+
+  /* HERO — small, since search/sidebar take priority now */
+  .hero { position: relative; padding: 1.8rem 2rem 1.6rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; overflow: hidden; }
+  .hero::before {
+    content: ''; position: absolute; top: -60%; left: -8%; width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(255,106,0,.16) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  .hero-title, .hero-meta { position: relative; z-index: 1; }
+  .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px, 4vw, 40px); letter-spacing: .02em; }
+  .hero-title .accent { color: var(--accent); text-shadow: 0 0 24px rgba(255,106,0,.35); }
+  .hero-meta { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; gap: 18px; }
+  .hero-meta strong { color: var(--text); }
+
+  /* STICKY FILTER CLUSTER */
+  .sticky-filters { position: sticky; top: 0; z-index: 60; background: var(--bg); transition: box-shadow .2s ease; }
+  .sticky-filters.scrolled { box-shadow: 0 8px 20px -8px rgba(0,0,0,.6); }
+
+  /* GENDER ROW */
+  .gender-row { display: flex; align-items: center; gap: 12px; padding: 14px 2rem; border-bottom: 1px solid var(--border); }
+  .gender-label { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+  .gender-pill { padding: 8px 18px; border-radius: 20px; border: 1px solid var(--border2); background: transparent; color: var(--muted); font-family: inherit; font-size: 12px; letter-spacing: .04em; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all .15s ease; }
+  .gender-pill.active { background: #fff; color: #000; border-color: #fff; }
+  .gender-pill:not(.active):hover { border-color: #555; color: #ccc; }
+
+  /* CATEGORY CHIPS ROW */
+  .cat-row { display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; border-bottom: 1px solid var(--border); }
+  .cat-tabs { display: flex; gap: 1.8rem; overflow-x: auto; }
+  .cat-tab { padding: 16px 0; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-family: inherit; white-space: nowrap; transition: color .15s ease, border-color .15s ease; }
+  .cat-tab.active { color: var(--text); border-bottom-color: var(--accent); }
+  .cat-tab:not(.active):hover { color: #ccc; }
+  .wishlist-link { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 6px; white-space: nowrap; margin-left: 1rem; background: none; border: none; cursor: pointer; font-family: inherit; transition: color .15s ease; }
+  .wishlist-link:hover { color: #fff; }
+  .wish-count-badge { background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; min-width: 16px; height: 16px; padding: 0 4px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; }
+
+  /* SUBCATEGORY ROW */
+  .subcat-row { display: flex; align-items: center; gap: 1.6rem; padding: 12px 2rem; border-bottom: 1px solid var(--border); overflow-x: auto; }
+  .subcat-tab { padding: 4px 0; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); background: none; border: none; border-bottom: 1.5px solid transparent; cursor: pointer; font-family: inherit; white-space: nowrap; transition: color .15s ease; }
+  .subcat-tab.active { color: var(--text); border-bottom-color: var(--accent); }
+  .subcat-tab:not(.active):hover { color: #ccc; }
+
+
+  /* PRICE PILLS + SORT */
+  .filter-row2 { display: flex; align-items: center; gap: 10px; padding: 12px 2rem; flex-wrap: wrap; border-bottom: 1px solid var(--border); }
+  .price-pill { padding: 7px 14px; border-radius: 20px; border: 1px solid var(--border2); background: transparent; color: var(--muted); font-family: inherit; font-size: 11px; cursor: pointer; transition: all .15s ease; }
+  .price-pill.active { background: #fff; color: #000; border-color: #fff; }
+  .price-pill:not(.active):hover { border-color: #555; color: #ccc; }
+  .filter-row2 select { margin-left: auto; background: var(--surface); border: 1px solid var(--border2); color: var(--text); padding: 8px 12px; border-radius: 6px; font-family: inherit; font-size: 12px; cursor: pointer; }
+
+  /* EMPTY STATE */
+  .empty-state { grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: var(--muted); font-size: 13px; }
+  .empty-state strong { display: block; color: #ddd; font-size: 16px; margin-bottom: 6px; font-family: 'Bebas Neue', sans-serif; letter-spacing: .04em; }
+
+  /* GRID */
+  .grid-count { padding: 14px 2rem 0; font-size: 12px; color: var(--muted); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 18px; padding: 12px 2rem 3rem; }
+  .card { background: var(--card-bg); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.4); transition: transform .18s ease, box-shadow .18s ease; }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 14px 28px -10px rgba(0,0,0,.6); }
+  .card-img { position: relative; aspect-ratio: 1/1; background: #e9e9e9; overflow: hidden; }
+  .card-img.loading { background: linear-gradient(100deg, #e9e9e9 30%, #f4f4f4 50%, #e9e9e9 70%); background-size: 200% 100%; animation: shimmer 1.3s infinite; }
+  @keyframes shimmer { 0% { background-position: 150% 0; } 100% { background-position: -50% 0; } }
+  .card-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease, opacity .25s ease; opacity: 0; }
+  .card-img img.loaded { opacity: 1; }
+  .card:hover .card-img img.loaded { transform: scale(1.06); }
+  .card-badge { position: absolute; top: 10px; left: 10px; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; font-weight: 700; padding: 4px 9px; background: var(--accent); color: #fff; border-radius: 3px; }
+  .card-badge.new { background: #fff; color: #1a1a1a; }
+  .wish-btn { position: absolute; top: 10px; right: 10px; width: 28px; height: 28px; border-radius: 50%; background: rgba(0,0,0,.5); border: none; color: #fff; font-size: 13px; cursor: pointer; transition: background .15s ease, color .15s ease, transform .15s ease; }
+  .wish-btn:hover { background: rgba(0,0,0,.7); color: #ff5c5c; transform: scale(1.1); }
+  .wish-btn.active { color: #ff5c5c; }
+  .card-body { padding: 12px 14px 14px; background: #141414; flex: 1; display: flex; flex-direction: column; }
+  .card-cat { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .card-name { font-size: 13px; font-weight: 600; color: #eee; margin-bottom: 8px; line-height: 1.3; }
+  .card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+  .card-tags span { font-size: 9px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border2); border-radius: 3px; padding: 2px 7px; }
+  .card-price { font-family: 'Bebas Neue', sans-serif; font-size: 20px; margin-bottom: 8px; letter-spacing: .02em; }
+  .buy-btn { display: block; text-align: center; padding: 10px; background: #fff; color: #000; text-decoration: none; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; border-radius: 5px; margin-top: auto; transition: background .15s ease, color .15s ease; }
+  .buy-btn:hover { background: var(--accent); color: #fff; }
+
+  footer { padding: 2rem; border-top: 1px solid var(--border); text-align: center; }
+  footer p { font-size: 10px; color: var(--muted2); letter-spacing: .03em; max-width: 720px; margin: 0 auto; line-height: 1.7; }
+
+  /* QUICK VIEW MODAL */
+  .qv-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.75); z-index: 300; display: none; align-items: center; justify-content: center; padding: 1.5rem; }
+  .qv-overlay.open { display: flex; }
+  .qv-modal { background: #141414; border: 1px solid var(--border2); border-radius: 10px; max-width: 760px; width: 100%; max-height: 88vh; overflow-y: auto; display: grid; grid-template-columns: 1fr 1fr; position: relative; }
+  @media (max-width: 640px) { .qv-modal { grid-template-columns: 1fr; } }
+  .qv-close { position: absolute; top: 10px; right: 12px; background: none; border: none; color: var(--muted); font-size: 22px; cursor: pointer; z-index: 2; }
+  .qv-close:hover { color: #fff; }
+  .qv-img { background: #e9e9e9; aspect-ratio: 1/1; }
+  .qv-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .qv-info { padding: 1.6rem; display: flex; flex-direction: column; gap: 8px; }
+  .qv-cat { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .qv-name { font-family: 'Bebas Neue', sans-serif; font-size: 24px; letter-spacing: .02em; line-height: 1.1; }
+  .qv-price { font-family: 'Bebas Neue', sans-serif; font-size: 30px; margin: 4px 0; }
+  .qv-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .qv-tags span { font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border2); border-radius: 3px; padding: 3px 8px; }
+  .qv-buy { margin-top: 10px; text-align: center; padding: 12px; background: #fff; color: #000; text-decoration: none; font-size: 12px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; border-radius: 6px; }
+  .qv-buy:hover { opacity: .85; }
+
+  /* SIMPLE PAGE HEADER (wishlist / help) */
+  .page-header { padding: 1.8rem 2rem 1.2rem; }
+  .page-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(30px, 5vw, 44px); letter-spacing: .02em; }
+  .page-header p { font-size: 12px; color: var(--muted); margin-top: 6px; max-width: 520px; line-height: 1.6; }
+
+  /* HELP PAGE */
+  .help-wrap { padding: 0 2rem 3rem; max-width: 760px; }
+  .help-section { padding: 1.6rem 0; border-bottom: 1px solid var(--border); }
+  .help-section:last-child { border-bottom: none; }
+  .help-section h2 { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: .02em; margin-bottom: 8px; }
+  .help-section p { font-size: 13px; color: #ccc; line-height: 1.7; margin-bottom: 8px; }
+  .help-section a { color: var(--accent); text-decoration: underline; }
+  .help-section ul { margin: 8px 0 0 18px; }
+  .help-section li { font-size: 13px; color: #ccc; line-height: 1.7; }
+  .help-contact { margin-top: 1rem; display: inline-block; padding: 11px 22px; background: var(--accent); color: #fff; text-decoration: none; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; border-radius: 6px; }
+  .help-contact:hover { filter: brightness(1.1); }
+
+  /* EMPTY PAGE STATE (wishlist page) */
+  .page-empty { text-align: center; padding: 4rem 2rem; color: var(--muted); }
+  .page-empty strong { display: block; color: #ddd; font-size: 22px; margin-bottom: 8px; font-family: 'Bebas Neue', sans-serif; letter-spacing: .02em; }
+  .page-empty a { display: inline-block; margin-top: 16px; padding: 10px 22px; background: #fff; color: #000; text-decoration: none; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; font-weight: 700; border-radius: 6px; }
+
+  
+  @media (max-width: 720px) {
+    .layout { grid-template-columns: 1fr; }
+    .sidebar { flex-direction: row; height: auto; position: static; overflow-x: auto; padding: .6rem; }
+    .sidebar .logo { display: none; }
+    .side-nav { flex-direction: row; }
+    .side-item { border-left: none; border-bottom: 2px solid transparent; padding: 8px 12px; }
+    .side-item.active, .side-item:hover { border-left-color: transparent; border-bottom-color: #fff; }
+    .topbar, .promo-strip, .hero, .cat-row, .gender-row, .subcat-row, .filter-row2, .grid-count, .grid, footer, .page-header, .help-wrap { padding-left: 1.1rem; padding-right: 1.1rem; }
+    .filter-row2 select { margin-left: 0; width: 100%; }
+    .search-wrap { max-width: none; }
+    .topbar { flex-wrap: wrap; }
+    .topbar-right { margin-left: 0; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="logo">TOMMY'S<span>1688 FINDS</span></div>
+    <nav class="side-nav">
+      <a class="side-item" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
+        Finds
+      </a>
+      <a class="side-item active" href="wishlist.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Wishlist<span class="wish-count-badge" style="display:none;">0</span>
+      </a>
+      <a class="side-item" href="help.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor" stroke="none"/></svg>
+        Help
+      </a>
+    </nav>
+  </aside>
+
+  <div class="main">
+
+    <div class="page-header">
+      <h1>My Wishlist</h1>
+      <p>Saved on this browser only — finds you've hearted from the main page. Clear your browser data and this list resets.</p>
+    </div>
+
+    <div class="grid" id="grid" style="padding: 0 2rem 3rem;"></div>
+
+    <footer>
+      <p>Tommy's 1688 Finds is an independent curation list. Every "Buy on 1688" button links directly to the original product page on 1688.com — we don't sell or ship anything ourselves.</p>
+    </footer>
+
+  </div>
+</div>
+
+<div id="qv-overlay" class="qv-overlay">
+  <div class="qv-modal">
+    <button class="qv-close" onclick="closeQV()">×</button>
+    <div class="qv-img" id="qv-img"></div>
+    <div class="qv-info" id="qv-info"></div>
+  </div>
+</div>
+
+<script>
+// ─────────────────────────────────────────────
+// CATEGORY TAXONOMY
+// ─────────────────────────────────────────────
+const CATEGORIES = {
+  tops:        { label: "Tops",        subs: ["Tees","Long Sleeves","Jerseys","Hoodies","Zip-Ups","Jackets","Sweaters","Knits","Coats","Tracksuits"] },
+  bottoms:     { label: "Bottoms",     subs: ["Pants","Jeans","Sweatpants","Shorts","Tracksuits"] },
+  footwear:    { label: "Footwear",    subs: ["Sneakers","Slippers","Boots"] },
+  accessories: { label: "Accessories", subs: ["Jewelry","Glasses","Belts","Bags","Wallets","Scarves","Headwear","Socks"] },
+  others:      { label: "Others",      subs: ["Lego","Room Decor","Electronics","Miscellaneous"] }
+};
+
+// ─────────────────────────────────────────────
+// PRODUCTS — edit this array to add your finds.
+// buyLink should be the direct 1688 product URL.
+// gender: "men" | "women" | "unisex"
+// mainCat: one of the keys above · subCat: one of that category's subs
+// hot: true/false — set manually for trending items
+// "New" is automatic: any item added within the last 7 days
+// ─────────────────────────────────────────────
+const products = [
+  { id: 1, addedDate: "2026-08-10", name: "Basic Cotton Tee (Blank, Heavyweight)", gender: "unisex", mainCat: "tops", subCat: "Tees", price: 3.10, hot: false, colors: ["Black","White","Grey"], buyLink: "https://detail.1688.com/offer/812034601.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 2, addedDate: "2026-08-09", name: "Zip-Up Fleece Hoodie (Plain)", gender: "unisex", mainCat: "tops", subCat: "Hoodies", price: 8.40, hot: true, colors: ["Black","Grey","Navy"], buyLink: "https://detail.1688.com/offer/812034602.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 3, addedDate: "2026-08-05", name: "Ribbed Knit Sweater (Crewneck)", gender: "women", mainCat: "tops", subCat: "Knits", price: 9.80, hot: false, colors: ["Beige","Sage","Wine"], buyLink: "https://detail.1688.com/offer/812034603.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 4, addedDate: "2026-08-08", name: "Straight Fit Denim Jeans", gender: "men", mainCat: "bottoms", subCat: "Jeans", price: 12.50, hot: false, colors: ["Blue","Black"], buyLink: "https://detail.1688.com/offer/812034604.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 5, addedDate: "2026-08-07", name: "Fleece Jogger Sweatpants", gender: "unisex", mainCat: "bottoms", subCat: "Sweatpants", price: 7.90, hot: true, colors: ["Black","Grey","Beige"], buyLink: "https://detail.1688.com/offer/812034605.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 6, addedDate: "2026-08-01", name: "Mesh Athletic Shorts", gender: "men", mainCat: "bottoms", subCat: "Shorts", price: 4.60, hot: false, colors: ["Black","Navy","Red"], buyLink: "https://detail.1688.com/offer/812034606.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 7, addedDate: "2026-08-06", name: "Canvas Low-Top Sneakers (Blank)", gender: "unisex", mainCat: "footwear", subCat: "Sneakers", price: 11.20, hot: false, colors: ["White","Black"], buyLink: "https://detail.1688.com/offer/812034607.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 8, addedDate: "2026-07-30", name: "Fleece-Lined Slippers", gender: "unisex", mainCat: "footwear", subCat: "Slippers", price: 3.90, hot: false, colors: ["Grey","Brown"], buyLink: "https://detail.1688.com/offer/812034608.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 9, addedDate: "2026-08-04", name: "Minimalist Chain Necklace", gender: "women", mainCat: "accessories", subCat: "Jewelry", price: 2.30, hot: false, colors: ["Silver","Gold"], buyLink: "https://detail.1688.com/offer/812034609.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 10, addedDate: "2026-07-28", name: "Square Frame Clear-Lens Glasses", gender: "unisex", mainCat: "accessories", subCat: "Glasses", price: 2.80, hot: false, colors: ["Black","Tortoise"], buyLink: "https://detail.1688.com/offer/812034610.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 11, addedDate: "2026-08-03", name: "Canvas Crossbody Bag", gender: "unisex", mainCat: "accessories", subCat: "Bags", price: 6.50, hot: true, colors: ["Black","Beige","Olive"], buyLink: "https://detail.1688.com/offer/812034611.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 12, addedDate: "2026-07-25", name: "Ribbed Beanie (Plain)", gender: "unisex", mainCat: "accessories", subCat: "Headwear", price: 1.90, hot: false, colors: ["Black","Grey","Cream"], buyLink: "https://detail.1688.com/offer/812034612.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 13, addedDate: "2026-07-20", name: "Classic Brick-Compatible Building Set (500pc)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 14.00, hot: false, colors: ["Multicolor"], buyLink: "https://detail.1688.com/offer/812034613.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 14, addedDate: "2026-08-02", name: "RGB LED Strip Lights (5m, App Control)", gender: "unisex", mainCat: "others", subCat: "Electronics", price: 6.40, hot: true, colors: ["Multicolor"], buyLink: "https://detail.1688.com/offer/812034614.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 15, addedDate: "2026-07-22", name: "Ceramic Vase (Minimalist)", gender: "unisex", mainCat: "others", subCat: "Room Decor", price: 5.20, hot: false, colors: ["White","Terracotta"], buyLink: "https://detail.1688.com/offer/812034615.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+];
+
+// A product counts as "New" if it was added within the last 7 days
+function isNewProduct(p) {
+  const added = new Date(p.addedDate + "T00:00:00");
+  const days = (new Date() - added) / (1000 * 60 * 60 * 24);
+  return days <= 7;
+}
+function getBadge(p) {
+  if (p.hot) return { text: 'hot', cls: 'hot' };
+  if (isNewProduct(p)) return { text: 'new', cls: 'new' };
+  return null;
+}
+
+// ─────────────────────────────────────────────
+// WISHLIST — persisted in localStorage, so it's
+// tied to whoever's browser is using the site.
+// ─────────────────────────────────────────────
+function getWishlist() { try { return JSON.parse(localStorage.getItem('tf_wishlist') || '[]'); } catch (e) { return []; } }
+function saveWishlist(w) { localStorage.setItem('tf_wishlist', JSON.stringify(w)); }
+function isWishlisted(id) { return getWishlist().includes(id); }
+
+function toggleWishlist(id, evt) {
+  if (evt) evt.stopPropagation();
+  let w = getWishlist();
+  w = w.includes(id) ? w.filter(x => x !== id) : [...w, id];
+  saveWishlist(w);
+  updateWishlistBadges();
+  if (typeof onWishlistChange === 'function') onWishlistChange();
+}
+
+// Updates the little count bubble next to any "Wishlist" nav link on the page
+function updateWishlistBadges() {
+  const count = getWishlist().length;
+  document.querySelectorAll('.wish-count-badge').forEach(el => {
+    el.textContent = count;
+    el.style.display = count ? 'inline-flex' : 'none';
+  });
+  document.querySelectorAll('.wish-btn').forEach(btn => {
+    const id = Number(btn.dataset.wishId);
+    btn.classList.toggle('active', getWishlist().includes(id));
+  });
+}
+
+// Shows the site's "last updated" date (most recent addedDate) wherever
+// an element with these ids exists on the page.
+function setUpdatedDateLabel() {
+  const latest = products.reduce((a, p) => p.addedDate > a ? p.addedDate : a, products[0].addedDate);
+  const formatted = new Date(latest + "T00:00:00").toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  ['hero-updated', 'promo-updated'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = 'Updated ' + formatted;
+  });
+}
+
+document.addEventListener('DOMContentLoaded', updateWishlistBadges);
+
+</script>
+<script>
+function renderWishlistPage() {
+  const ids = getWishlist();
+  const list = products.filter(p => ids.includes(p.id));
+  const grid = document.getElementById('grid');
+
+  if (!list.length) {
+    grid.innerHTML = `
+      <div class="page-empty" style="grid-column:1/-1;">
+        <strong>Your wishlist is empty</strong>
+        <p>Tap the ♡ on any find to save it here.</p>
+        <a href="index.html">Browse Finds</a>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = list.map(p => {
+    const badge = getBadge(p);
+    return `
+    <div class="card" onclick="openQV(${p.id})">
+      <div class="card-img loading">
+        <img src="${p.image}" alt="${p.name}" onload="this.classList.add('loaded'); this.parentElement.classList.remove('loading');" />
+        ${badge ? `<span class="card-badge ${badge.cls}">${badge.text}</span>` : ''}
+        <button class="wish-btn active" data-wish-id="${p.id}" onclick="toggleWishlist(${p.id}, event)">♥</button>
+      </div>
+      <div class="card-body">
+        <p class="card-cat">${p.subCat}</p>
+        <p class="card-name">${p.name}</p>
+        <div class="card-tags">${p.colors.map(c => `<span>${c}</span>`).join('')}</div>
+        <p class="card-price">$${p.price.toFixed(2)}</p>
+        <a class="buy-btn" href="${p.buyLink}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Buy on 1688 →</a>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+// Re-render this page's grid whenever a heart is toggled (e.g. removing an item)
+function onWishlistChange() { renderWishlistPage(); }
+
+function openQV(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('qv-img').innerHTML = `<img src="${p.image}" alt="${p.name}" />`;
+  document.getElementById('qv-info').innerHTML = `
+    <p class="qv-cat">${CATEGORIES[p.mainCat].label} · ${p.subCat}</p>
+    <h2 class="qv-name">${p.name}</h2>
+    <p class="qv-price">$${p.price.toFixed(2)}</p>
+    <div class="qv-tags">${p.colors.map(c => `<span>${c}</span>`).join('')}</div>
+    <a class="qv-buy" href="${p.buyLink}" target="_blank" rel="noopener">Buy on 1688 →</a>
+  `;
+  document.getElementById('qv-overlay').classList.add('open');
+}
+function closeQV() { document.getElementById('qv-overlay').classList.remove('open'); }
+document.getElementById('qv-overlay').addEventListener('click', e => { if (e.target.id === 'qv-overlay') closeQV(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeQV(); });
+
+renderWishlistPage();
+</script>
+</body>
+</html>
