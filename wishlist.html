@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Wishlist — Tommy's 1688 Finds</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='58' font-weight='900' fill='%23fff' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/style.css" />
+</head>
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="logo">TOMMY'S<span>1688 FINDS</span></div>
+    <nav class="side-nav">
+      <a class="side-item" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
+        Finds
+      </a>
+      <a class="side-item active" href="wishlist.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Wishlist<span class="wish-count-badge" style="display:none;">0</span>
+      </a>
+      <a class="side-item" href="help.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor" stroke="none"/></svg>
+        Help
+      </a>
+    </nav>
+  </aside>
+
+  <div class="main">
+
+    <div class="page-header">
+      <h1>My Wishlist</h1>
+      <p>Saved on this browser only — finds you've hearted from the main page. Clear your browser data and this list resets.</p>
+    </div>
+
+    <div class="grid" id="grid" style="padding: 0 2rem 3rem;"></div>
+
+    <footer>
+      <p>Tommy's 1688 Finds is an independent curation list. Every "Buy on 1688" button links directly to the original product page on 1688.com — we don't sell or ship anything ourselves.</p>
+    </footer>
+
+  </div>
+</div>
+
+<div id="qv-overlay" class="qv-overlay">
+  <div class="qv-modal">
+    <button class="qv-close" onclick="closeQV()">×</button>
+    <div class="qv-img" id="qv-img"></div>
+    <div class="qv-info" id="qv-info"></div>
+  </div>
+</div>
+
+<script src="assets/shared.js"></script>
+<script>
+function renderWishlistPage() {
+  const ids = getWishlist();
+  const list = products.filter(p => ids.includes(p.id));
+  const grid = document.getElementById('grid');
+
+  if (!list.length) {
+    grid.innerHTML = `
+      <div class="page-empty" style="grid-column:1/-1;">
+        <strong>Your wishlist is empty</strong>
+        <p>Tap the ♡ on any find to save it here.</p>
+        <a href="index.html">Browse Finds</a>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = list.map(p => {
+    const badge = getBadge(p);
+    return `
+    <div class="card" onclick="openQV(${p.id})">
+      <div class="card-img loading">
+        <img src="${p.image}" alt="${p.name}" onload="this.classList.add('loaded'); this.parentElement.classList.remove('loading');" />
+        ${badge ? `<span class="card-badge ${badge.cls}">${badge.text}</span>` : ''}
+        <button class="wish-btn active" data-wish-id="${p.id}" onclick="toggleWishlist(${p.id}, event)">♥</button>
+      </div>
+      <div class="card-body">
+        <p class="card-cat">${p.subCat}</p>
+        <p class="card-name">${p.name}</p>
+        <div class="card-tags">${p.colors.map(c => `<span>${c}</span>`).join('')}</div>
+        <p class="card-price">$${p.price.toFixed(2)}</p>
+        <a class="buy-btn" href="${p.buyLink}" target="_blank" rel="noopener" onclick="event.stopPropagation();">Buy on 1688 →</a>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+// Re-render this page's grid whenever a heart is toggled (e.g. removing an item)
+function onWishlistChange() { renderWishlistPage(); }
+
+function openQV(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('qv-img').innerHTML = `<img src="${p.image}" alt="${p.name}" />`;
+  document.getElementById('qv-info').innerHTML = `
+    <p class="qv-cat">${CATEGORIES[p.mainCat].label} · ${p.subCat}</p>
+    <h2 class="qv-name">${p.name}</h2>
+    <p class="qv-price">$${p.price.toFixed(2)}</p>
+    <div class="qv-tags">${p.colors.map(c => `<span>${c}</span>`).join('')}</div>
+    <a class="qv-buy" href="${p.buyLink}" target="_blank" rel="noopener">Buy on 1688 →</a>
+  `;
+  document.getElementById('qv-overlay').classList.add('open');
+}
+function closeQV() { document.getElementById('qv-overlay').classList.remove('open'); }
+document.getElementById('qv-overlay').addEventListener('click', e => { if (e.target.id === 'qv-overlay') closeQV(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeQV(); });
+
+renderWishlistPage();
+</script>
+</body>
+</html>
