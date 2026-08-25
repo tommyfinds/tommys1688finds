@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<script>if(localStorage.getItem("tf_theme")==="light")document.documentElement.classList.add("light");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Tommy's 1688 Finds</title>
 <meta name="description" content="Tommy's 1688 Finds — curated cheap, non-branded finds sourced directly from 1688, updated regularly." />
@@ -25,7 +26,43 @@
     --accent: #ff6a00;
   }
 
+  :root.light {
+    --bg: #f5f5f3;
+    --surface: #ffffff;
+    --sidebar-bg: #ffffff;
+    --border: #e3e2e0;
+    --border2: #d2d1cf;
+    --text: #111111;
+    --muted: #6b6b6b;
+    --muted2: #9a9a9a;
+  }
+  :root.light .sidebar { border-right-color: var(--border); }
+  :root.light .side-item:not(.active):hover { background: rgba(0,0,0,.05); }
+  :root.light .search-wrap input { background: #fff; }
+  :root.light .filter-row2 select { background: #fff; }
+  :root.light .gender-pill.active,
+  :root.light .price-pill.active { background: #111; color: #fff; border-color: #111; }
+  :root.light .cat-tab.active { color: #111; }
+  :root.light .wishlist-link:hover { color: #111; }
+  :root.light .card-img { background: #eee; }
+  :root.light .qv-modal, :root.light .qv-img { background: #fff; }
+
+
   body { font-family: 'Archivo Narrow', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+  /* GRAIN TEXTURE OVERLAY */
+  body::before {
+    content: ''; position: fixed; inset: 0; z-index: 999; pointer-events: none;
+    opacity: .035; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* CUSTOM SCROLLBAR */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 6px; border: 2px solid var(--bg); }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+  * { scrollbar-color: var(--border2) var(--bg); scrollbar-width: thin; }
+
 
   .layout { display: grid; grid-template-columns: 92px 1fr; min-height: 100vh; }
 
@@ -125,8 +162,11 @@
 
   /* GRID */
   .grid-count { padding: 14px 2rem 0; font-size: 12px; color: var(--muted); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 18px; padding: 12px 2rem 3rem; }
-  .card { background: var(--card-bg); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.4); transition: transform .18s ease, box-shadow .18s ease; }
+  .grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; padding: 12px 2rem 3rem; }
+  @media (max-width: 1250px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  .card { background: var(--card-bg); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; box-shadow: 0 1px 3px rgba(0,0,0,.4); transition: transform .18s ease, box-shadow .18s ease; opacity: 0; transform: translateY(14px); animation: cardIn .45s ease forwards; }
+  @keyframes cardIn { to { opacity: 1; transform: translateY(0); } }
   .card:hover { transform: translateY(-4px); box-shadow: 0 14px 28px -10px rgba(0,0,0,.6); }
   .card-img { position: relative; aspect-ratio: 1/1; background: #e9e9e9; overflow: hidden; }
   .card-img.loading { background: linear-gradient(100deg, #e9e9e9 30%, #f4f4f4 50%, #e9e9e9 70%); background-size: 200% 100%; animation: shimmer 1.3s infinite; }
@@ -140,11 +180,11 @@
   .wish-btn:hover { background: rgba(0,0,0,.7); color: #ff5c5c; transform: scale(1.1); }
   .wish-btn.active { color: #ff5c5c; }
   .card-body { padding: 12px 14px 14px; background: #141414; flex: 1; display: flex; flex-direction: column; }
-  .card-cat { font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
-  .card-name { font-size: 13px; font-weight: 600; color: #eee; margin-bottom: 8px; line-height: 1.3; }
+  .card-cat { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .card-name { font-size: 14px; font-weight: 600; color: #eee; margin-bottom: 8px; line-height: 1.35; }
   .card-tags { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
-  .card-tags span { font-size: 9px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border2); border-radius: 3px; padding: 2px 7px; }
-  .card-price { font-family: 'Bebas Neue', sans-serif; font-size: 20px; margin-bottom: 8px; letter-spacing: .02em; }
+  .card-tags span { font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border2); border-radius: 3px; padding: 2px 7px; }
+  .card-price { font-family: 'Bebas Neue', sans-serif; font-size: 22px; margin-bottom: 8px; letter-spacing: .02em; }
   .buy-btn { display: block; text-align: center; padding: 10px; background: #fff; color: #000; text-decoration: none; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 700; border-radius: 5px; margin-top: auto; transition: background .15s ease, color .15s ease; }
   .buy-btn:hover { background: var(--accent); color: #fff; }
 
@@ -193,6 +233,7 @@
 
   
   @media (max-width: 720px) {
+    .grid { grid-template-columns: repeat(2, 1fr) !important; }
     .layout { grid-template-columns: 1fr; }
     .sidebar { flex-direction: row; height: auto; position: static; overflow-x: auto; padding: .6rem; }
     .sidebar .logo { display: none; }
@@ -248,17 +289,20 @@
         <button onclick="render()">Search</button>
       </div>
       <div class="topbar-right">
-        <button class="icon-btn" id="theme-toggle">🌙</button>
-        <a class="icon-btn" href="#" target="_blank" rel="noopener" title="Discord" aria-label="Discord">
+        <button class="icon-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        </button>
+        <a class="icon-btn" href="https://discord.com/invite/yJHHqZzrXt" target="_blank" rel="noopener" title="Discord" aria-label="Discord">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.036c-1.714.29-3.354.8-4.885 1.49a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026 13.83 13.83 0 0 0 1.226-1.963.074.074 0 0 0-.041-.104 13.2 13.2 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.246.195.373.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.96 19.96 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.311-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.311-.947 2.38-2.157 2.38z"/></svg>
         </a>
-        <a class="icon-btn" href="#" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
+        <a class="icon-btn" href="https://www.youtube.com/@Tommy-finds" target="_blank" rel="noopener" title="YouTube" aria-label="YouTube">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.376.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.376-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         </a>
-        <a class="icon-btn" href="#" target="_blank" rel="noopener" title="Reddit" aria-label="Reddit">
+        <a class="icon-btn" href="https://www.reddit.com/user/parisuserr/" target="_blank" rel="noopener" title="Reddit" aria-label="Reddit">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12.61c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.184a.36.36 0 0 1 .43-.283l2.906.617a1.214 1.214 0 0 1 1.046-.595v.33zM9.25 12.573a1.249 1.249 0 1 0 0 2.498 1.249 1.249 0 0 0 0-2.498zm5.5 0a1.25 1.25 0 1 0 0 2.498 1.25 1.25 0 0 0 0-2.498zm-5.466 3.99a.327.327 0 0 0-.231.556c.55.552 1.66.72 2.443.72.783 0 1.893-.168 2.443-.72a.327.327 0 0 0-.462-.462c-.35.352-1.144.475-1.98.475-.837 0-1.633-.123-1.982-.475a.325.325 0 0 0-.23-.095z"/></svg>
         </a>
-        <a class="icon-btn" href="#" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
+        <a class="icon-btn" href="https://www.tiktok.com/@tommy_flnds" target="_blank" rel="noopener" title="TikTok" aria-label="TikTok">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
         </a>
       </div>
@@ -336,21 +380,21 @@ const CATEGORIES = {
 // "New" is automatic: any item added within the last 7 days
 // ─────────────────────────────────────────────
 const products = [
-  { id: 1, addedDate: "2026-08-10", name: "Basic Cotton Tee (Blank, Heavyweight)", gender: "unisex", mainCat: "tops", subCat: "Tees", price: 3.10, hot: false, colors: ["Black","White","Grey"], buyLink: "https://detail.1688.com/offer/812034601.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 2, addedDate: "2026-08-09", name: "Zip-Up Fleece Hoodie (Plain)", gender: "unisex", mainCat: "tops", subCat: "Hoodies", price: 8.40, hot: true, colors: ["Black","Grey","Navy"], buyLink: "https://detail.1688.com/offer/812034602.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 3, addedDate: "2026-08-05", name: "Ribbed Knit Sweater (Crewneck)", gender: "women", mainCat: "tops", subCat: "Knits", price: 9.80, hot: false, colors: ["Beige","Sage","Wine"], buyLink: "https://detail.1688.com/offer/812034603.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 4, addedDate: "2026-08-08", name: "Straight Fit Denim Jeans", gender: "men", mainCat: "bottoms", subCat: "Jeans", price: 12.50, hot: false, colors: ["Blue","Black"], buyLink: "https://detail.1688.com/offer/812034604.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 5, addedDate: "2026-08-07", name: "Fleece Jogger Sweatpants", gender: "unisex", mainCat: "bottoms", subCat: "Sweatpants", price: 7.90, hot: true, colors: ["Black","Grey","Beige"], buyLink: "https://detail.1688.com/offer/812034605.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 6, addedDate: "2026-08-01", name: "Mesh Athletic Shorts", gender: "men", mainCat: "bottoms", subCat: "Shorts", price: 4.60, hot: false, colors: ["Black","Navy","Red"], buyLink: "https://detail.1688.com/offer/812034606.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 7, addedDate: "2026-08-06", name: "Canvas Low-Top Sneakers (Blank)", gender: "unisex", mainCat: "footwear", subCat: "Sneakers", price: 11.20, hot: false, colors: ["White","Black"], buyLink: "https://detail.1688.com/offer/812034607.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 8, addedDate: "2026-07-30", name: "Fleece-Lined Slippers", gender: "unisex", mainCat: "footwear", subCat: "Slippers", price: 3.90, hot: false, colors: ["Grey","Brown"], buyLink: "https://detail.1688.com/offer/812034608.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 9, addedDate: "2026-08-04", name: "Minimalist Chain Necklace", gender: "women", mainCat: "accessories", subCat: "Jewelry", price: 2.30, hot: false, colors: ["Silver","Gold"], buyLink: "https://detail.1688.com/offer/812034609.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 10, addedDate: "2026-07-28", name: "Square Frame Clear-Lens Glasses", gender: "unisex", mainCat: "accessories", subCat: "Glasses", price: 2.80, hot: false, colors: ["Black","Tortoise"], buyLink: "https://detail.1688.com/offer/812034610.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 11, addedDate: "2026-08-03", name: "Canvas Crossbody Bag", gender: "unisex", mainCat: "accessories", subCat: "Bags", price: 6.50, hot: true, colors: ["Black","Beige","Olive"], buyLink: "https://detail.1688.com/offer/812034611.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 12, addedDate: "2026-07-25", name: "Ribbed Beanie (Plain)", gender: "unisex", mainCat: "accessories", subCat: "Headwear", price: 1.90, hot: false, colors: ["Black","Grey","Cream"], buyLink: "https://detail.1688.com/offer/812034612.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 13, addedDate: "2026-07-20", name: "Classic Brick-Compatible Building Set (500pc)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 14.00, hot: false, colors: ["Multicolor"], buyLink: "https://detail.1688.com/offer/812034613.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 14, addedDate: "2026-08-02", name: "RGB LED Strip Lights (5m, App Control)", gender: "unisex", mainCat: "others", subCat: "Electronics", price: 6.40, hot: true, colors: ["Multicolor"], buyLink: "https://detail.1688.com/offer/812034614.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
-  { id: 15, addedDate: "2026-07-22", name: "Ceramic Vase (Minimalist)", gender: "unisex", mainCat: "others", subCat: "Room Decor", price: 5.20, hot: false, colors: ["White","Terracotta"], buyLink: "https://detail.1688.com/offer/812034615.html", image: "https://placehold.co/500x500/e9e9e9/999?text=%20" },
+  { id: 1, addedDate: "2026-08-10", name: "Basic Cotton Tee (Blank, Heavyweight)", gender: "unisex", mainCat: "tops", subCat: "Tees", price: 3.10, hot: false, colors: ["Black","White","Grey"], buyLink: "https://detail.1688.com/offer/812034601.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 2, addedDate: "2026-08-09", name: "Zip-Up Fleece Hoodie (Plain)", gender: "unisex", mainCat: "tops", subCat: "Hoodies", price: 8.40, hot: true, colors: ["Black","Grey","Navy"], buyLink: "https://detail.1688.com/offer/812034602.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 3, addedDate: "2026-08-05", name: "Ribbed Knit Sweater (Crewneck)", gender: "women", mainCat: "tops", subCat: "Knits", price: 9.80, hot: false, colors: ["Beige","Sage","Wine"], buyLink: "https://detail.1688.com/offer/812034603.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 4, addedDate: "2026-08-08", name: "Straight Fit Denim Jeans", gender: "men", mainCat: "bottoms", subCat: "Jeans", price: 12.50, hot: false, colors: ["Blue","Black"], buyLink: "https://detail.1688.com/offer/812034604.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 5, addedDate: "2026-08-07", name: "Fleece Jogger Sweatpants", gender: "unisex", mainCat: "bottoms", subCat: "Sweatpants", price: 7.90, hot: true, colors: ["Black","Grey","Beige"], buyLink: "https://detail.1688.com/offer/812034605.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 6, addedDate: "2026-08-01", name: "Mesh Athletic Shorts", gender: "men", mainCat: "bottoms", subCat: "Shorts", price: 4.60, hot: false, colors: ["Black","Navy","Red"], buyLink: "https://detail.1688.com/offer/812034606.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 7, addedDate: "2026-08-06", name: "Canvas Low-Top Sneakers (Blank)", gender: "unisex", mainCat: "footwear", subCat: "Sneakers", price: 11.20, hot: false, colors: ["White","Black"], buyLink: "https://detail.1688.com/offer/812034607.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 8, addedDate: "2026-07-30", name: "Fleece-Lined Slippers", gender: "unisex", mainCat: "footwear", subCat: "Slippers", price: 3.90, hot: false, colors: ["Grey","Brown"], buyLink: "https://detail.1688.com/offer/812034608.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 9, addedDate: "2026-08-04", name: "Minimalist Chain Necklace", gender: "women", mainCat: "accessories", subCat: "Jewelry", price: 2.30, hot: false, colors: ["Silver","Gold"], buyLink: "https://detail.1688.com/offer/812034609.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 10, addedDate: "2026-07-28", name: "Square Frame Clear-Lens Glasses", gender: "unisex", mainCat: "accessories", subCat: "Glasses", price: 2.80, hot: false, colors: ["Black","Tortoise"], buyLink: "https://detail.1688.com/offer/812034610.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 11, addedDate: "2026-08-03", name: "Canvas Crossbody Bag", gender: "unisex", mainCat: "accessories", subCat: "Bags", price: 6.50, hot: true, colors: ["Black","Beige","Olive"], buyLink: "https://detail.1688.com/offer/812034611.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 12, addedDate: "2026-07-25", name: "Ribbed Beanie (Plain)", gender: "unisex", mainCat: "accessories", subCat: "Headwear", price: 1.90, hot: false, colors: ["Black","Grey","Cream"], buyLink: "https://detail.1688.com/offer/812034612.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 13, addedDate: "2026-07-20", name: "Classic Brick-Compatible Building Set (500pc)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 14.00, hot: false, colors: ["Multicolor"], buyLink: "https://detail.1688.com/offer/812034613.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 14, addedDate: "2026-08-02", name: "RGB LED Strip Lights (5m, App Control)", gender: "unisex", mainCat: "others", subCat: "Electronics", price: 6.40, hot: true, colors: ["Multicolor"], buyLink: "https://detail.1688.com/offer/812034614.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 15, addedDate: "2026-07-22", name: "Ceramic Vase (Minimalist)", gender: "unisex", mainCat: "others", subCat: "Room Decor", price: 5.20, hot: false, colors: ["White","Terracotta"], buyLink: "https://detail.1688.com/offer/812034615.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
 ];
 
 // A product counts as "New" if it was added within the last 7 days
@@ -407,6 +451,30 @@ function setUpdatedDateLabel() {
 }
 
 document.addEventListener('DOMContentLoaded', updateWishlistBadges);
+// ─────────────────────────────────────────────
+// THEME TOGGLE — persisted in localStorage,
+// shared across all pages of the site.
+// ─────────────────────────────────────────────
+function initThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  const moonIcon = btn.querySelector('.icon-moon');
+  const sunIcon = btn.querySelector('.icon-sun');
+  function sync() {
+    const isLight = document.documentElement.classList.contains('light');
+    moonIcon.style.display = isLight ? 'none' : 'block';
+    sunIcon.style.display = isLight ? 'block' : 'none';
+  }
+  sync();
+  btn.addEventListener('click', () => {
+    document.documentElement.classList.toggle('light');
+    const isLight = document.documentElement.classList.contains('light');
+    localStorage.setItem('tf_theme', isLight ? 'light' : 'dark');
+    sync();
+  });
+}
+document.addEventListener('DOMContentLoaded', initThemeToggle);
+
 
 </script>
 <script>
@@ -468,6 +536,22 @@ document.getElementById('price-row').querySelectorAll('.price-pill').forEach(btn
 document.getElementById('sort-select').addEventListener('change', e => { state.sort = e.target.value; render(); });
 document.getElementById('search-input').addEventListener('input', e => { state.search = e.target.value.toLowerCase(); render(); });
 
+function animateCount(el, target) {
+  if (!el) return;
+  const start = Number(el.dataset.count || 0);
+  if (start === target) return;
+  el.dataset.count = target;
+  const duration = 400;
+  const startTime = performance.now();
+  function tick(now) {
+    const progress = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(start + (target - start) * eased);
+    if (progress < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
 function render() {
   let list = products.filter(p =>
     (state.gender === 'all' || p.gender === state.gender || p.gender === 'unisex') &&
@@ -480,18 +564,18 @@ function render() {
   if (state.sort === 'price-asc') list.sort((a,b) => a.price - b.price);
   if (state.sort === 'price-desc') list.sort((a,b) => b.price - a.price);
 
-  document.getElementById('grid-count').textContent = list.length;
-  document.getElementById('hero-count').textContent = products.length;
+  animateCount(document.getElementById('grid-count'), list.length);
+  animateCount(document.getElementById('hero-count'), products.length);
 
   const grid = document.getElementById('grid');
   if (!list.length) {
     grid.innerHTML = `<div class="empty-state"><strong>No finds here yet</strong>Try adjusting or clearing your filters.</div>`;
     return;
   }
-  grid.innerHTML = list.map(p => {
+  grid.innerHTML = list.map((p, i) => {
     const badge = getBadge(p);
     return `
-    <div class="card" onclick="openQV(${p.id})">
+    <div class="card" style="animation-delay:${Math.min(i * 40, 400)}ms" onclick="openQV(${p.id})">
       <div class="card-img loading">
         <img src="${p.image}" alt="${p.name}" onload="this.classList.add('loaded'); this.parentElement.classList.remove('loading');" />
         ${badge ? `<span class="card-badge ${badge.cls}">${badge.text}</span>` : ''}
