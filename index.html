@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <script>if(localStorage.getItem("tf_theme")==="light")document.documentElement.classList.add("light");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Tommy's 1688 Finds</title>
-<meta name="description" content="Tommy's 1688 Finds — curated cheap, non-branded finds sourced directly from 1688, updated regularly." />
+<title>1688 Finds</title>
+<meta name="description" content="1688 Finds — curated cheap, non-branded finds sourced directly from 1688, updated regularly." />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='58' font-weight='900' fill='%23fff' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
@@ -100,13 +100,17 @@
   .topbar-right svg { display: block; }
   .icon-btn:hover { color: #fff; }
 
-  /* PROMO STRIP */
-  .promo-strip { display: flex; gap: 0; padding: 0 2rem; border-bottom: 1px solid var(--border); overflow-x: auto; }
-  .promo-item { display: flex; align-items: center; gap: 10px; padding: 14px 22px 14px 0; margin-right: 22px; border-right: 1px solid var(--border); white-space: nowrap; }
-  .promo-item:last-child { border-right: none; }
-  .promo-item .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-  .promo-item .ptext strong { display: block; font-size: 12px; color: #fff; }
-  .promo-item .ptext span { font-size: 10px; color: var(--muted); }
+  /* STATS STRIP */
+  .stats-strip { display: flex; align-items: center; gap: 3.5rem; padding: 1.6rem 2rem; border-bottom: 1px solid var(--border); }
+  .stats-main { font-family: 'Bebas Neue', sans-serif; font-size: clamp(54px, 8vw, 96px); line-height: 1; letter-spacing: .01em; color: var(--text); white-space: nowrap; }
+  .stats-main .num { color: var(--accent); text-shadow: 0 0 28px rgba(255,106,0,.3); }
+  .stats-side { display: flex; flex-direction: column; gap: .7rem; border-left: 1px solid var(--border2); padding-left: 3.5rem; }
+  .stats-side .stat-line { font-family: 'Archivo Narrow', sans-serif; font-weight: 600; font-size: clamp(17px, 2.2vw, 24px); color: var(--text); white-space: nowrap; }
+  .stats-side .stat-line b { font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: 1.35em; letter-spacing: .02em; color: var(--accent); margin-right: 4px; }
+  @media (max-width: 700px) {
+    .stats-strip { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .stats-side { border-left: none; padding-left: 0; }
+  }
 
   /* HERO — small, since search/sidebar take priority now */
   .hero { position: relative; padding: 1.8rem 2rem 1.6rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; overflow: hidden; }
@@ -240,7 +244,7 @@
     .side-nav { flex-direction: row; }
     .side-item { border-left: none; border-bottom: 2px solid transparent; padding: 8px 12px; }
     .side-item.active, .side-item:hover { border-left-color: transparent; border-bottom-color: #fff; }
-    .topbar, .promo-strip, .hero, .cat-row, .gender-row, .subcat-row, .filter-row2, .grid-count, .grid, footer, .page-header, .help-wrap { padding-left: 1.1rem; padding-right: 1.1rem; }
+    .topbar, .stats-strip, .hero, .cat-row, .gender-row, .subcat-row, .filter-row2, .grid-count, .grid, footer, .page-header, .help-wrap { padding-left: 1.1rem; padding-right: 1.1rem; }
     .filter-row2 select { margin-left: 0; width: 100%; }
     .search-wrap { max-width: none; }
     .topbar { flex-wrap: wrap; }
@@ -255,7 +259,7 @@
 
   <!-- LEFT SIDEBAR -->
   <aside class="sidebar">
-    <div class="logo">TOMMY'S<span>1688 FINDS</span></div>
+    <div class="logo">1688 FINDS</div>
     <nav class="side-nav">
       <a class="side-item active" href="index.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
@@ -276,7 +280,7 @@
   <div class="main">
 
     <section class="hero">
-      <h1 class="hero-title">TOMMY'S <span class="accent">1688</span> FINDS</h1>
+      <h1 class="hero-title"><span class="accent">1688</span> FINDS</h1>
       <div class="hero-meta">
         <span><strong id="hero-count">0</strong> finds available</span>
         <span id="hero-updated">Updated —</span>
@@ -308,10 +312,13 @@
       </div>
     </div>
 
-    <div class="promo-strip">
-      <div class="promo-item"><span class="dot"></span><div class="ptext"><strong id="promo-updated">Updated —</strong><span>New finds regularly</span></div></div>
-      <div class="promo-item"><span class="dot"></span><div class="ptext"><strong>Direct 1688 links</strong><span>No middleman markup</span></div></div>
-      <div class="promo-item"><span class="dot"></span><div class="ptext"><strong>Under $10 finds</strong><span>Budget picks</span></div></div>
+    <div class="stats-strip">
+      <div class="stats-main"><span class="num" id="stat-finds">0</span> finds</div>
+      <div class="stats-side">
+        <div class="stat-line"><b id="stat-month-finds">0</b> finds added this month</div>
+        <div class="stat-line"><b id="stat-month-visits">—</b> visitors this month</div>
+        <div class="stat-line"><b id="stat-all-visits">—</b> all-time visitors</div>
+      </div>
     </div>
 
     <div class="sticky-filters">
@@ -345,7 +352,7 @@
     <div class="grid" id="grid"></div>
 
     <footer>
-      <p>Tommy's 1688 Finds is an independent curation list. Every "Buy on 1688" button links directly to the original product page on 1688.com — we don't sell or ship anything ourselves.</p>
+      <p>1688 Finds is an independent curation list. Every "Buy on 1688" button links directly to the original product page on 1688.com — we don't sell or ship anything ourselves.</p>
     </footer>
 
   </div>
@@ -449,6 +456,72 @@ function setUpdatedDateLabel() {
     if (el) el.textContent = 'Updated ' + formatted;
   });
 }
+
+// ─────────────────────────────────────────────
+// SITE STATS — finds are counted from the products list above.
+// Visitors are stored in the same Firebase Realtime Database as your
+// view counter, under /stats/visits. Each browser is counted once per
+// month (monthly) and once ever (all-time). Increments are atomic.
+// ─────────────────────────────────────────────
+const FIREBASE_URL = 'https://tommys-finds-default-rtdb.firebaseio.com';
+
+function fmtNum(n) { return Number(n).toLocaleString('fr-FR'); }
+
+function animateCount(el, target) {
+  const start = performance.now(), dur = 700;
+  function step(t) {
+    const k = Math.min(1, (t - start) / dur);
+    el.textContent = fmtNum(Math.round(target * (1 - Math.pow(1 - k, 3))));
+    if (k < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+async function fbCounter(path, shouldCount) {
+  const url = FIREBASE_URL + '/stats/visits/' + path + '.json';
+  if (shouldCount) {
+    // Atomic server-side increment (safe even with many visitors at once)
+    const w = await fetch(url, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ '.sv': { increment: 1 } })
+    });
+    if (!w.ok) throw new Error('write ' + w.status);
+  }
+  const r = await fetch(url);
+  if (!r.ok) throw new Error('read ' + r.status);
+  return (await r.json()) || 0;
+}
+
+async function loadVisitorStat(elId, path, flagKey) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  let alreadyCounted = false;
+  try { alreadyCounted = localStorage.getItem(flagKey) === '1'; } catch (e) {}
+  try {
+    const count = await fbCounter(path, !alreadyCounted);
+    try { localStorage.setItem(flagKey, '1'); } catch (e) {}
+    animateCount(el, count);
+  } catch (e) {
+    el.textContent = '—';
+  }
+}
+
+function setSiteStats() {
+  const now = new Date();
+  const ym = now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0');
+
+  const total = document.getElementById('stat-finds');
+  if (total) animateCount(total, products.length);
+
+  const addedThisMonth = products.filter(p => p.addedDate.slice(0, 7) === ym).length;
+  const monthEl = document.getElementById('stat-month-finds');
+  if (monthEl) animateCount(monthEl, addedThisMonth);
+
+  loadVisitorStat('stat-month-visits', 'months/' + ym, 'tf_counted_' + ym);
+  loadVisitorStat('stat-all-visits', 'all', 'tf_counted_all');
+}
+document.addEventListener('DOMContentLoaded', setSiteStats);
 
 document.addEventListener('DOMContentLoaded', updateWishlistBadges);
 // ─────────────────────────────────────────────
