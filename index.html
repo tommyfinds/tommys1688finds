@@ -316,8 +316,8 @@
       <div class="stats-main"><span class="num" id="stat-finds">0</span> finds</div>
       <div class="stats-side">
         <div class="stat-line"><b id="stat-month-finds">0</b> finds added this month</div>
-        <div class="stat-line"><b id="stat-month-visits">—</b> visitors this month</div>
-        <div class="stat-line"><b id="stat-all-visits">—</b> all-time visitors</div>
+        <div class="stat-line"><b id="stat-month-visits">—</b> visits this month</div>
+        <div class="stat-line"><b id="stat-all-visits">—</b> all-time visits</div>
       </div>
     </div>
 
@@ -387,21 +387,50 @@ const CATEGORIES = {
 // "New" is automatic: any item added within the last 7 days
 // ─────────────────────────────────────────────
 const products = [
-  { id: 1, addedDate: "2026-08-10", name: "Basic Cotton Tee (Blank, Heavyweight)", gender: "unisex", mainCat: "tops", subCat: "Tees", price: 3.10, hot: false, colors: ["Black","White","Grey"], buyLink: "https://detail.1688.com/offer/812034601.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 2, addedDate: "2026-08-09", name: "Zip-Up Fleece Hoodie (Plain)", gender: "unisex", mainCat: "tops", subCat: "Hoodies", price: 8.40, hot: true, colors: ["Black","Grey","Navy"], buyLink: "https://detail.1688.com/offer/812034602.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 3, addedDate: "2026-08-05", name: "Ribbed Knit Sweater (Crewneck)", gender: "women", mainCat: "tops", subCat: "Knits", price: 9.80, hot: false, colors: ["Beige","Sage","Wine"], buyLink: "https://detail.1688.com/offer/812034603.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 4, addedDate: "2026-08-08", name: "Straight Fit Denim Jeans", gender: "men", mainCat: "bottoms", subCat: "Jeans", price: 12.50, hot: false, colors: ["Blue","Black"], buyLink: "https://detail.1688.com/offer/812034604.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 5, addedDate: "2026-08-07", name: "Fleece Jogger Sweatpants", gender: "unisex", mainCat: "bottoms", subCat: "Sweatpants", price: 7.90, hot: true, colors: ["Black","Grey","Beige"], buyLink: "https://detail.1688.com/offer/812034605.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 6, addedDate: "2026-08-01", name: "Mesh Athletic Shorts", gender: "men", mainCat: "bottoms", subCat: "Shorts", price: 4.60, hot: false, colors: ["Black","Navy","Red"], buyLink: "https://detail.1688.com/offer/812034606.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 7, addedDate: "2026-08-06", name: "Canvas Low-Top Sneakers (Blank)", gender: "unisex", mainCat: "footwear", subCat: "Sneakers", price: 11.20, hot: false, colors: ["White","Black"], buyLink: "https://detail.1688.com/offer/812034607.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 8, addedDate: "2026-07-30", name: "Fleece-Lined Slippers", gender: "unisex", mainCat: "footwear", subCat: "Slippers", price: 3.90, hot: false, colors: ["Grey","Brown"], buyLink: "https://detail.1688.com/offer/812034608.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 9, addedDate: "2026-08-04", name: "Minimalist Chain Necklace", gender: "women", mainCat: "accessories", subCat: "Jewelry", price: 2.30, hot: false, colors: ["Silver","Gold"], buyLink: "https://detail.1688.com/offer/812034609.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 10, addedDate: "2026-07-28", name: "Square Frame Clear-Lens Glasses", gender: "unisex", mainCat: "accessories", subCat: "Glasses", price: 2.80, hot: false, colors: ["Black","Tortoise"], buyLink: "https://detail.1688.com/offer/812034610.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 11, addedDate: "2026-08-03", name: "Canvas Crossbody Bag", gender: "unisex", mainCat: "accessories", subCat: "Bags", price: 6.50, hot: true, colors: ["Black","Beige","Olive"], buyLink: "https://detail.1688.com/offer/812034611.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 12, addedDate: "2026-07-25", name: "Ribbed Beanie (Plain)", gender: "unisex", mainCat: "accessories", subCat: "Headwear", price: 1.90, hot: false, colors: ["Black","Grey","Cream"], buyLink: "https://detail.1688.com/offer/812034612.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 13, addedDate: "2026-07-20", name: "Classic Brick-Compatible Building Set (500pc)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 14.00, hot: false, colors: ["Multicolor"], buyLink: "https://detail.1688.com/offer/812034613.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 14, addedDate: "2026-08-02", name: "RGB LED Strip Lights (5m, App Control)", gender: "unisex", mainCat: "others", subCat: "Electronics", price: 6.40, hot: true, colors: ["Multicolor"], buyLink: "https://detail.1688.com/offer/812034614.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
-  { id: 15, addedDate: "2026-07-22", name: "Ceramic Vase (Minimalist)", gender: "unisex", mainCat: "others", subCat: "Room Decor", price: 5.20, hot: false, colors: ["White","Terracotta"], buyLink: "https://detail.1688.com/offer/812034615.html", image: "https://placehold.co/500x500/e9e9e9/e9e9e9" },
+  { id: 1, addedDate: "2025-12-06", name: "Supreme Spider-Man SS26 T-Shirt", gender: "unisex", mainCat: "tops", subCat: "Tees", price: 7.93, hot: false, colors: ["Black","White"], buyLink: "https://detail.1688.com/offer/1027223239100.html", image: "https://i.imgur.com/NVwXUaw.png" },
+  { id: 2, addedDate: "2025-12-10", name: "AirPods Max 2", gender: "unisex", mainCat: "others", subCat: "Electronics", price: 37.24, hot: false, colors: ["Black","Blue","Orange","Purple","Gold"], buyLink: "https://detail.1688.com/offer/926779342399.html", image: "https://i.imgur.com/TOTUWH4.png" },
+  { id: 3, addedDate: "2025-12-12", name: "One Piece Going Merry (Set 75639)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 11.09, hot: false, colors: ["Brown","Beige","Red"], buyLink: "https://detail.1688.com/offer/981981155870.html", image: "https://i.imgur.com/amle350.png" },
+  { id: 4, addedDate: "2025-12-14", name: "Artiemaster 370gsm Boxy Blank", gender: "unisex", mainCat: "tops", subCat: "Zip-Ups", price: 13.47, hot: false, colors: ["Black","Grey","Brown","Grey","Blue","Green"], buyLink: "https://detail.1688.com/offer/948615042955.html", image: "https://i.imgur.com/LliFjbe.png" },
+  { id: 5, addedDate: "2025-12-16", name: "Rimowa Backpack", gender: "unisex", mainCat: "accessories", subCat: "Bags", price: 56.25, hot: false, colors: ["Black","Green"], buyLink: "https://detail.1688.com/offer/924624978880.html", image: "https://i.imgur.com/nGasrgN.jpeg" },
+  { id: 6, addedDate: "2025-12-18", name: "Louis Vuitton Wallets", gender: "unisex", mainCat: "accessories", subCat: "Wallets", price: 6.33, hot: false, colors: ["Black","Brown"], buyLink: "https://detail.1688.com/offer/938287845289.html", image: "https://i.imgur.com/xOHpwIg.png" },
+  { id: 7, addedDate: "2025-12-20", name: "Stussy Thermal", gender: "unisex", mainCat: "tops", subCat: "Long Sleeves", price: 17.43, hot: false, colors: ["Black","Green","White","Yellow","Blue","Grey","Grey","Wine Red"], buyLink: "https://detail.1688.com/offer/988046541569.html", image: "https://i.imgur.com/yVS3xoo.png" },
+  { id: 8, addedDate: "2025-12-22", name: "Nike Mind 002", gender: "unisex", mainCat: "footwear", subCat: "Slippers", price: 19.81, hot: false, colors: ["Black","White","Pink","Beige","Grey"], buyLink: "https://detail.1688.com/offer/836173723768.html", image: "https://i.imgur.com/NtZfiNz.png" },
+  { id: 9, addedDate: "2025-12-24", name: "Lululemon Yoga Woman", gender: "unisex", mainCat: "bottoms", subCat: "Tracksuits", price: 29.79, hot: false, colors: ["Black","White","Pink","Beige","Grey","Purple","Yellow","Green","Wine Red","Orange","Blue"], buyLink: "https://detail.1688.com/offer/947537941462.html", image: "https://i.imgur.com/ECNjKqe.png" },
+  { id: 10, addedDate: "2025-12-26", name: "Bape X Hello Kitty Tees", gender: "unisex", mainCat: "tops", subCat: "Tees", price: 7.13, hot: false, colors: ["Black","White"], buyLink: "https://detail.1688.com/offer/927657625936.html", image: "https://i.imgur.com/chzZTyw.png" },
+  { id: 11, addedDate: "2025-12-27", name: "Acne Studios Shorts", gender: "unisex", mainCat: "bottoms", subCat: "Shorts", price: 15.52, hot: false, colors: ["Black","Blue"], buyLink: "https://detail.1688.com/offer/926443985138.html", image: "https://i.imgur.com/W5onCiS.jpeg" },
+  { id: 12, addedDate: "2025-12-28", name: "MARVEL Daily Bugle (Set 76178)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 32.54, hot: false, colors: ["Red","Grey"], buyLink: "https://detail.1688.com/offer/920340077720.html", image: "https://i.imgur.com/dRFTufK.jpeg" },
+  { id: 13, addedDate: "2025-12-29", name: "Bape Skateboard", gender: "unisex", mainCat: "others", subCat: "Room Decor", price: 7.94, hot: false, colors: ["Blue","Pink","Green","Grey","Yellow"], buyLink: "https://detail.1688.com/offer/623527868120.html", image: "https://i.imgur.com/PQ8KAlt.png" },
+  { id: 14, addedDate: "2025-12-30", name: "Supreme Retro Handheld Console", gender: "unisex", mainCat: "others", subCat: "Electronics", price: 3.94, hot: false, colors: ["Red","Black","Green","Blue","Grey"], buyLink: "https://detail.1688.com/offer/960681887542.html", image: "https://i.imgur.com/dQxVUxW.png" },
+  { id: 15, addedDate: "2025-12-31", name: "Artiemaster Quality Blank Joggings", gender: "unisex", mainCat: "bottoms", subCat: "Sweatpants", price: 13.65, hot: false, colors: ["Grey","Black"], buyLink: "https://detail.1688.com/offer/972657569099.html", image: "https://i.imgur.com/hVh5sUw.png" },
+  { id: 16, addedDate: "2026-01-01", name: "NASA Artemis Space Launch System (Set 10341)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 29.36, hot: false, colors: ["Orange","Black","Grey"], buyLink: "https://detail.1688.com/offer/927229137794.html", image: "https://i.imgur.com/xOnkxZo.png" },
+  { id: 17, addedDate: "2026-01-02", name: "STAR WARS Millennium Falcon (Set 75105)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 13.65, hot: false, colors: ["Black","Grey"], buyLink: "https://detail.1688.com/offer/917025722113.html", image: "https://i.imgur.com/CzcVQcs.png" },
+  { id: 18, addedDate: "2026-01-03", name: "Polo Bear Wool Sweater", gender: "unisex", mainCat: "tops", subCat: "Sweaters", price: 28.57, hot: false, colors: ["Blue"], buyLink: "https://detail.1688.com/offer/708132901272.html", image: "https://i.imgur.com/lm7jdfO.png" },
+  { id: 19, addedDate: "2026-01-04", name: "GTA San Andreas Carpet", gender: "unisex", mainCat: "others", subCat: "Room Decor", price: 2.54, hot: false, colors: ["Black","Yellow"], buyLink: "https://detail.1688.com/offer/729540245968.html", image: "https://i.imgur.com/oFzAKEm.png" },
+  { id: 23, addedDate: "2026-04-11", name: "Numeris Shoes (28 designs)", gender: "unisex", mainCat: "footwear", subCat: "Sneakers", price: 30.16, hot: false, colors: ["Black","White","Green","Pink","Blue"], buyLink: "https://detail.1688.com/offer/972250196381.html", image: "https://i.imgur.com/dsnIGql.png" },
+  { id: 24, addedDate: "2026-04-11", name: "Stussy X Nike AIR Bomber Jacket", gender: "unisex", mainCat: "tops", subCat: "Jackets", price: 23.81, hot: false, colors: ["Black","Green"], buyLink: "https://detail.1688.com/offer/891697267706.html", image: "https://i.imgur.com/nYsSIhc.jpeg" },
+  { id: 25, addedDate: "2026-04-12", name: "NOCTA Short Sleeve Tee", gender: "unisex", mainCat: "tops", subCat: "Tees", price: 7.78, hot: false, colors: ["Black","White","Grey","Beige","Red","Blue","Orange","Pink"], buyLink: "https://detail.1688.com/offer/934169404988.html", image: "https://i.imgur.com/8y88zth.jpeg" },
+  { id: 27, addedDate: "2026-04-13", name: "AKIMBO CLUB Zip-up", gender: "unisex", mainCat: "tops", subCat: "Zip-Ups", price: 17.46, hot: false, colors: ["Red","Black","Blue"], buyLink: "https://detail.1688.com/offer/889403369906.html", image: "https://i.imgur.com/yhxqlY9.png" },
+  { id: 28, addedDate: "2026-04-14", name: "Stussy X Nike Parachute Pants", gender: "unisex", mainCat: "bottoms", subCat: "Pants", price: 7.94, hot: false, colors: ["Black"], buyLink: "https://detail.1688.com/offer/888539425717.html", image: "https://i.imgur.com/OuWk62r.png" },
+  { id: 29, addedDate: "2026-04-14", name: "Margiela Wine Red Knit", gender: "unisex", mainCat: "tops", subCat: "Knits", price: 12.39, hot: false, colors: ["Red"], buyLink: "https://detail.1688.com/offer/1006493154460.html", image: "https://i.imgur.com/8R3omNo.png" },
+  { id: 30, addedDate: "2026-04-15", name: "Thom Browne Crewneck (3 colors)", gender: "unisex", mainCat: "tops", subCat: "Sweaters", price: 12.07, hot: false, colors: ["Blue","Grey","White"], buyLink: "https://detail.1688.com/offer/765938583959.html", image: "https://i.imgur.com/eRmU7Tb.png" },
+  { id: 31, addedDate: "2026-04-15", name: "Bape Short Sleeve (78 designs)", gender: "unisex", mainCat: "tops", subCat: "Tees", price: 5.72, hot: false, colors: ["Black","White","Red","Orange","Pink","Grey","Blue","Beige","Yellow","Purple","Green"], buyLink: "https://detail.1688.com/offer/908781372193.html", image: "https://i.imgur.com/ei2EM14.jpeg" },
+  { id: 32, addedDate: "2026-04-16", name: "MARVEL Sanctum Sanctorum (Set 76218)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 15.23, hot: false, colors: ["Red","Grey","Beige"], buyLink: "https://detail.1688.com/offer/902657576091.html", image: "https://i.imgur.com/U1U3HIi.png" },
+  { id: 33, addedDate: "2026-04-16", name: "TRANSFORMERS Optimus Prime (Set 10302)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 13.96, hot: false, colors: ["Red","Blue","Grey"], buyLink: "https://detail.1688.com/offer/815131795092.html", image: "https://i.imgur.com/IeZhGYM.png" },
+  { id: 34, addedDate: "2026-04-16", name: "JURASSIC WORLD Tyrannosaurus Rex (Set 76968)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 32.99, hot: false, colors: ["Beige"], buyLink: "https://detail.1688.com/offer/924005500168.html", image: "https://i.imgur.com/hese5IY.jpeg" },
+  { id: 35, addedDate: "2026-04-16", name: "STRANGER THINGS The Upside Down (Set 75810)", gender: "unisex", mainCat: "others", subCat: "Lego", price: 26.81, hot: false, colors: ["Grey"], buyLink: "https://detail.1688.com/offer/938188560856.html", image: "https://i.imgur.com/kWeN2Wm.jpeg" },
+  { id: 36, addedDate: "2026-04-16", name: "Goyard Duffel Bag", gender: "unisex", mainCat: "accessories", subCat: "Bags", price: 10.31, hot: false, colors: ["Green","Blue","Black","Grey"], buyLink: "https://detail.1688.com/offer/866132723442.html", image: "https://i.imgur.com/8eX6jPG.png" },
+  { id: 37, addedDate: "2026-04-17", name: "Brooklyn Embroidery Grey Hoodie", gender: "unisex", mainCat: "tops", subCat: "Hoodies", price: 15.55, hot: false, colors: ["Grey"], buyLink: "https://detail.1688.com/offer/696100045526.html", image: "https://i.imgur.com/xwOS8J6.jpeg" },
+  { id: 38, addedDate: "2026-04-17", name: "Balenciaga Snake Necklace", gender: "unisex", mainCat: "accessories", subCat: "Jewelry", price: 7.14, hot: false, colors: ["Grey"], buyLink: "https://detail.1688.com/offer/903518670096.html", image: "https://i.imgur.com/JUX8kN3.jpeg" },
+  { id: 39, addedDate: "2026-04-17", name: "Thom Browne Cardigan (5 colors)", gender: "unisex", mainCat: "tops", subCat: "Sweaters", price: 19.83, hot: false, colors: ["Grey","Black","Pink","White","Blue"], buyLink: "https://detail.1688.com/offer/858631772509.html", image: "https://i.imgur.com/kIsL9fJ.jpeg" },
+  { id: 40, addedDate: "2026-04-17", name: "Louis Vuitton Varsity Jacket (65 colors)", gender: "unisex", mainCat: "tops", subCat: "Jackets", price: 29.34, hot: false, colors: ["Beige","Green","Blue","Black","White"], buyLink: "https://detail.1688.com/offer/939199943064.html", image: "https://i.imgur.com/VUdEKK1.jpeg" },
+  { id: 41, addedDate: "2026-04-17", name: "Nike Light Retro Tracksuit (Top)", gender: "unisex", mainCat: "tops", subCat: "Jackets", price: 12.37, hot: false, colors: ["Blue","Black","Beige"], buyLink: "https://detail.1688.com/offer/944411981484.html", image: "https://i.imgur.com/M1lC7oG.jpeg" },
+  { id: 42, addedDate: "2026-04-17", name: "Nike Light Retro Tracksuit (Bottom)", gender: "unisex", mainCat: "bottoms", subCat: "Pants", price: 9.52, hot: false, colors: ["Blue","Black","Beige"], buyLink: "https://detail.1688.com/offer/944411981484.html", image: "https://i.imgur.com/mNeeVwE.jpeg" },
+  { id: 43, addedDate: "2026-04-17", name: "Nike Pair of 5 Long Socks", gender: "unisex", mainCat: "accessories", subCat: "Socks", price: 2.95, hot: false, colors: ["White","Black","Grey"], buyLink: "https://detail.1688.com/offer/978752778511.html", image: "https://i.imgur.com/8vsz15D.jpeg" },
+  { id: 44, addedDate: "2026-04-22", name: "Chrome Hearts Glasses", gender: "unisex", mainCat: "accessories", subCat: "Glasses", price: 0.75, hot: false, colors: ["Black","Silver","Gold","Transparent"], buyLink: "https://detail.1688.com/offer/974067031421.html", image: "https://i.imgur.com/603KcKV.png" },
+  { id: 45, addedDate: "2026-04-22", name: "Eastpak Backpack", gender: "unisex", mainCat: "accessories", subCat: "Bags", price: 8.41, hot: false, colors: ["Black","Grey","Red","Blue","Green"], buyLink: "https://detail.1688.com/offer/807016840631.html", image: "https://i.imgur.com/l0IdO6Y.jpeg" },
+  { id: 46, addedDate: "2026-04-22", name: "Stussy Short-Sleeves (100 designs)", gender: "unisex", mainCat: "tops", subCat: "Tees", price: 6.19, hot: false, colors: ["Black","White","Green","Red","Blue","Orange","Yellow","Pink","Purple","Beige"], buyLink: "https://detail.1688.com/offer/867094206911.html", image: "https://i.imgur.com/gtnMuTW.jpeg" },
+  { id: 47, addedDate: "2026-04-22", name: "Acne Studios Straight Fit Jeans", gender: "unisex", mainCat: "bottoms", subCat: "Jeans", price: 18.72, hot: false, colors: ["Blue","White","Black","Pink"], buyLink: "https://detail.1688.com/offer/917347543843.html", image: "https://i.imgur.com/rTHsgl6.jpeg" },
+  { id: 48, addedDate: "2026-04-22", name: "Chrome Hearts Wood Ashtray", gender: "unisex", mainCat: "others", subCat: "Room Decor", price: 1.99, hot: false, colors: ["Brown","Black","White"], buyLink: "https://detail.1688.com/offer/985667110520.html", image: "https://i.imgur.com/XilFWn9.jpeg" }
 ];
 
 // A product counts as "New" if it was added within the last 7 days
@@ -459,9 +488,9 @@ function setUpdatedDateLabel() {
 
 // ─────────────────────────────────────────────
 // SITE STATS — finds are counted from the products list above.
-// Visitors are stored in the same Firebase Realtime Database as your
-// view counter, under /stats/visits. Each browser is counted once per
-// month (monthly) and once ever (all-time). Increments are atomic.
+// Visits are stored in Firebase Realtime Database under /stats/visits.
+// A visit is counted once per browser session (refreshing or clicking
+// around doesn't add more; coming back later does). Increments are atomic.
 // ─────────────────────────────────────────────
 const FIREBASE_URL = 'https://finds-2ba8a-default-rtdb.firebaseio.com';
 
@@ -497,10 +526,10 @@ async function loadVisitorStat(elId, path, flagKey) {
   const el = document.getElementById(elId);
   if (!el) return;
   let alreadyCounted = false;
-  try { alreadyCounted = localStorage.getItem(flagKey) === '1'; } catch (e) {}
+  try { alreadyCounted = sessionStorage.getItem(flagKey) === '1'; } catch (e) {}
   try {
     const count = await fbCounter(path, !alreadyCounted);
-    try { localStorage.setItem(flagKey, '1'); } catch (e) {}
+    try { sessionStorage.setItem(flagKey, '1'); } catch (e) {}
     animateCount(el, count);
   } catch (e) {
     el.textContent = '—';
@@ -518,8 +547,8 @@ function setSiteStats() {
   const monthEl = document.getElementById('stat-month-finds');
   if (monthEl) animateCount(monthEl, addedThisMonth);
 
-  loadVisitorStat('stat-month-visits', 'months/' + ym, 'tf_counted_' + ym);
-  loadVisitorStat('stat-all-visits', 'all', 'tf_counted_all');
+  loadVisitorStat('stat-month-visits', 'months/' + ym, 'tf_visit_' + ym);
+  loadVisitorStat('stat-all-visits', 'all', 'tf_visit_all');
 }
 document.addEventListener('DOMContentLoaded', setSiteStats);
 
