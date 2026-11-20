@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <script>if(localStorage.getItem("tf_theme")==="light")document.documentElement.classList.add("light");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Help — Tommy's 1688 Finds</title>
+<title>Help — 1688 Finds</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%230a0a0a'/%3E%3Ctext x='50' y='68' font-family='Arial,sans-serif' font-size='58' font-weight='900' fill='%23fff' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet" />
@@ -22,7 +22,7 @@
     --text: #f0f0f0;
     --muted: #8a8a8a;
     --muted2: #5c5c5c;
-    --accent: #ff6a00;
+    --accent: #ff4000;
   }
 
   :root.light {
@@ -111,12 +111,12 @@
   .hero { position: relative; padding: 1.8rem 2rem 1.6rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; overflow: hidden; }
   .hero::before {
     content: ''; position: absolute; top: -60%; left: -8%; width: 420px; height: 420px;
-    background: radial-gradient(circle, rgba(255,106,0,.16) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,64,0,.16) 0%, transparent 70%);
     pointer-events: none; z-index: 0;
   }
   .hero-title, .hero-meta { position: relative; z-index: 1; }
   .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px, 4vw, 40px); letter-spacing: .02em; }
-  .hero-title .accent { color: var(--accent); text-shadow: 0 0 24px rgba(255,106,0,.35); }
+  .hero-title .accent { color: var(--accent); text-shadow: 0 0 24px rgba(255,64,0,.35); }
   .hero-meta { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; gap: 18px; }
   .hero-meta strong { color: var(--text); }
 
@@ -266,7 +266,7 @@
 <div class="layout">
 
   <aside class="sidebar">
-    <div class="logo">TOMMY'S<span>1688 FINDS</span></div>
+    <div class="logo">1688 FINDS</div>
     <nav class="side-nav">
       <a class="side-item" href="index.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 11l9-7 9 7"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
@@ -279,6 +279,10 @@
       <a class="side-item active" href="help.html">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-2 2-2 3.5"/><circle cx="12" cy="16.5" r=".6" fill="currentColor" stroke="none"/></svg>
         Help
+      </a>
+      <a class="side-item" href="about.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
+        About
       </a>
     </nav>
   </aside>
@@ -300,7 +304,7 @@
 
       <div class="help-section">
         <h2>What is this site?</h2>
-        <p>Tommy's 1688 Finds is a site I made because I love the 1688 community and I wanted to do a website where people can find all the best links, the cheapest, the best quality for the price and to skip the resellers in this space. Every link goes straight to 1688, I don't sell anything nor ship nor anything like that. I gain nothing from this except helping the community and people out, hope you guys will enjoy the work I put here!</p>
+        <p>1688 Finds is a site I made because I love the 1688 community and I wanted to do a website where people can find all the best links, the cheapest, the best quality for the price and to skip the resellers in this space. Every link goes straight to 1688, I don't sell anything nor ship nor anything like that. I gain nothing from this except helping the community and people out, hope you guys will enjoy the work I put here!</p>
       </div>
 
       <div class="help-section">
@@ -342,13 +346,13 @@
       <div class="help-section">
         <h2>Something's wrong with a listing or link</h2>
         <p>Let me know and I'll fix it. Reach out below.</p>
-        <a class="help-contact" href="mailto:youremail@example.com?subject=Tommy's%201688%20Finds%20-%20Issue">Contact Me</a>
+        <a class="help-contact" href="mailto:youremail@example.com?subject=1688%20Finds%20-%20Issue">Contact Me</a>
       </div>
 
     </div>
 
     <footer>
-      <p>Tommy's 1688 Finds is an independent curation list. Every "Buy on 1688" button links directly to the original product page on 1688.com — we don't sell or ship anything ourselves.</p>
+      <p>1688 Finds is an independent curation list. Every "Buy on 1688" button links directly to the original product page on 1688.com — we don't sell or ship anything ourselves.</p>
     </footer>
 
   </div>
